@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Add New Event</h2>
+    
+    <form method="post" novalidate>
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="{{ form.department.id_for_label }}" class="form-label">Department:</label>
+            {{ form.department|add_class:"form-select" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.title.id_for_label }}" class="form-label">Title:</label>
+            {{ form.title|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.description.id_for_label }}" class="form-label">Description:</label>
+            {{ form.description|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.date.id_for_label }}" class="form-label">Date:</label>
+            {{ form.date|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.time.id_for_label }}" class="form-label">Time:</label>
+            {{ form.time|add_class:"form-control" }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

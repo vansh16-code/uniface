@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Select Department</h2>
+        <a href="{% url 'add_event' %}" class="btn btn-success">+ Add New Event</a>
+    </div>
+
+    <form method="get" class="mb-4">
+        <div class="input-group w-50">
+            <select name="department" class="form-select" onchange="this.form.submit()">
+                <option value="">All Departments</option>
+                {% for dept in departments %}
+                    <option value="{{ dept.id }}" {% if dept.id|stringformat:"s" == selected_department %}selected{% endif %}>
+                        {{ dept.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+
+    {% for dept in departments %}
+        <div class="d-flex justify-content-between align-items-center mb-2 border p-2 rounded">
+            <strong>{{ dept.name }}</strong>
+            {% if user.is_authenticated %}
+                {% if dept in user.followed_departments.all %}
+                    <a href="{% url 'unfollow_department' dept.id %}" class="btn btn-outline-danger btn-sm">Unfollow</a>
+                {% else %}
+                    <a href="{% url 'follow_department' dept.id %}" class="btn btn-outline-primary btn-sm">Follow</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <hr class="mt-4"/>
+
+    <h3 class="mb-3">Upcoming Events</h3>
+    {% for event in events %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title">{{ event.title }}</h4>
+                <p class="card-text">{{ event.description }}</p>
+
+                <div class="mb-2">
+                    <span class="badge bg-primary">{{ event.department.name }}</span>
+                    <span class="badge bg-info text-dark">{{ event.date }} at {{ event.time }}</span>
+                    <span class="badge bg-secondary">Participants: {{ event.participants.count }}</span>
+                </div>
+
+                {% if user.is_authenticated %}
+                    {% if user in event.participants.all %}
+                        <a href="{% url 'leave_event' event.id %}" class="btn btn-danger btn-sm">Leave Event</a>
+                    {% else %}
+                        <a href="{% url 'join_event' event.id %}" class="btn btn-primary btn-sm">Join Event</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-sm">Login to Join</a>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">No upcoming events for this department.</p>
+    {% endfor %}
+
+    <h3 class="mt-5 mb-3">Latest News</h3>
+    {% for item in news %}
+        <div class="card mb-2 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.content }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">No news found for this department.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
