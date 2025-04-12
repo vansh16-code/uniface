@@ -76,9 +76,11 @@
             <div class="card-body">
                 <h5 class="card-title">{{ item.title }}</h5>
 
-                {% if item.image %}
-                    <img src="{{ item.image.url }}" class="img-fluid mb-3" alt="News Image">
-                {% endif %}
+            {% if news.image %}
+  <img src="{{ news.image.url }}" alt="News Image">
+{% else %}
+  <p>No image uploaded.</p>
+{% endif %}
 
                 <div style="max-height: 500px; overflow-y: auto;">
                     <p class="card-text">{{ item.content }}</p>
