@@ -62,6 +62,11 @@
     <div class="container">
         <a class="navbar-brand" href="/">UniFace</a>
 
+        <!-- Admin Panel Link -->
+        {% if user.is_staff %}
+        <a class="navbar-brand ms-3" href="{% url 'admin_dashboard' %}">Admin Panel</a>
+        {% endif %}
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>

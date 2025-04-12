@@ -1,0 +1,49 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Admin Dashboard</h2>
+    
+    <!-- Departments Section -->
+    <div class="mb-5">
+        <h3>Manage Departments</h3>
+        <ul class="list-group">
+            {% for department in departments %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>{{ department.name }}</span>
+                    <a href="{% url 'edit_department' department.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_department' department.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Events Section -->
+    <div class="mb-5">
+        <h3>Manage Events</h3>
+        <ul class="list-group">
+            {% for event in events %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>{{ event.title }}</span>
+                    <a href="{% url 'edit_event' event.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_event' event.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- News Section -->
+    <div>
+        <h3>Manage News</h3>
+        <ul class="list-group">
+            {% for item in news %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>{{ item.title }}</span>
+                    <a href="{% url 'edit_news' item.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_news' item.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

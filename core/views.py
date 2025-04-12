@@ -150,3 +150,169 @@ def get_followed_departments(self):
     return Department.objects.filter(followers=self)
 
 User.add_to_class('followed_departments', property(get_followed_departments))
+
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render
+from .models import Department, Event, News
+
+# Check if the user is an admin
+def is_admin(user):
+    return user.is_staff  # This checks if the user has staff status (admin rights)
+
+@user_passes_test(is_admin)
+def admin_dashboard(request):
+    departments = Department.objects.all()
+    events = Event.objects.all()
+    news = News.objects.all()
+
+    context = {
+        'departments': departments,
+        'events': events,
+        'news': news,
+    }
+
+    return render(request, 'core/admin-dashboard.html', context)
+
+from django.shortcuts import get_object_or_404, redirect
+from .models import Department
+from .forms import DepartmentForm  # Assuming you have a form for Department
+
+@user_passes_test(is_admin)
+def edit_department(request, department_id):
+    department = get_object_or_404(Department, id=department_id)
+
+    if request.method == 'POST':
+        form = DepartmentForm(request.POST, instance=department)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')
+    else:
+        form = DepartmentForm(instance=department)
+
+    return render(request, 'edit_department.html', {'form': form})
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .models import Department
+
+@user_passes_test(is_admin)
+def delete_department(request, department_id):
+    department = get_object_or_404(Department, id=department_id)
+    department.delete()
+    return redirect('admin_dashboard')
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .models import Department
+from .forms import DepartmentForm
+
+@user_passes_test(is_admin)
+def add_department(request):
+    if request.method == 'POST':
+        form = DepartmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')
+    else:
+        form = DepartmentForm()
+
+    return render(request, 'add_department.html', {'form': form})
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .models import Event
+from .forms import EventForm
+
+@user_passes_test(is_admin)
+def edit_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')
+    else:
+        form = EventForm(instance=event)
+
+    return render(request, 'edit_event.html', {'form': form})
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .models import Event
+
+@user_passes_test(is_admin)
+def delete_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    event.delete()
+    return redirect('admin_dashboard')
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .models import Event
+from .forms import EventForm
+
+@user_passes_test(is_admin)
+def add_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')
+    else:
+        form = EventForm()
+
+    return render(request, 'add_event.html', {'form': form})
+
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .models import News
+from .forms import NewsForm
+
+@user_passes_test(is_admin)
+def edit_news(request, item_id):
+    news_item = get_object_or_404(News, id=item_id)
+
+    if request.method == 'POST':
+        form = NewsForm(request.POST, instance=news_item)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')
+    else:
+        form = NewsForm(instance=news_item)
+
+    return render(request, 'edit_news.html', {'form': form})
+
+
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .models import News
+
+@user_passes_test(is_admin)
+def delete_news(request, item_id):
+    news_item = get_object_or_404(News, id=item_id)
+    news_item.delete()
+    return redirect('admin_dashboard')
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .models import News
+from .forms import NewsForm
+
+@user_passes_test(is_admin)
+def add_news(request):
+    if request.method == 'POST':
+        form = NewsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')
+    else:
+        form = NewsForm()
+
+    return render(request, 'add_news.html', {'form': form})
+
