@@ -5,15 +5,31 @@
   body {
     background: linear-gradient(to right, #e0f7ff, #ffffff);
   }
-  input[type="text"],
-  input[type="password"] {
-    background-color: #ffffff !important;
-    color: #000 !important;
-    border: 1px solid #ccc;
-  }
-  input[type="text"]::placeholder,
-  input[type="password"]::placeholder {
-    color: #999;
+  @media (prefers-color-scheme: dark) {
+    body {
+      background: linear-gradient(to right, #121212, #1e1e1e);
+    }
+
+    .card {
+      background-color: #1e1e1e !important;
+      color: #fff;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      background-color: #2c2c2c !important;
+      color: #fff !important;
+      border: 1px solid #444;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    .btn-primary {
+      background-color: #2563eb;
+      border-color: #2563eb;
+    }
   }
 </style>
 
