@@ -1,12 +1,46 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
+<style>
+  body {
+    background: linear-gradient(to right, #e0f7ff, #ffffff);
+  }
+  input[type="text"],
+  input[type="password"] {
+    background-color: #ffffff !important;
+    color: #000 !important;
+    border: 1px solid #ccc;
+  }
+  input[type="text"]::placeholder,
+  input[type="password"]::placeholder {
+    color: #999;
+  }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%; border-radius: 16px;">
+    <h3 class="text-center mb-4">Login to UniFace</h3>
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" id="id_username" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_password" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="id_password" required>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </form>
+
+    <p class="text-center mt-3">
+      Don't have an account? <a href="{% url 'register' %}">Register here</a>
+    </p>
+  </div>
 </div>
 {% endblock %}
