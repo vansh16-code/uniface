@@ -213,7 +213,8 @@ def edit_news(request, item_id):
         form = NewsForm(request.POST, instance=news_item)
         if form.is_valid():
             form.save()
-            return redirect('admin_dashboard')
+            messages.success(request, 'News updated successfully!')
+            return redirect('admin_dashboard')  # Redirect to admin dashboard
     else:
         form = NewsForm(instance=news_item)
 
