@@ -189,7 +189,7 @@ def edit_department(request, department_id):
     else:
         form = DepartmentForm(instance=department)
 
-    return render(request, 'edit_department.html', {'form': form})
+    return render(request, 'core/edit_department.html', {'form': form})
 
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
@@ -217,7 +217,7 @@ def add_department(request):
     else:
         form = DepartmentForm()
 
-    return render(request, 'add_department.html', {'form': form})
+    return render(request, 'core/add_department.html', {'form': form})
 
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
@@ -236,7 +236,7 @@ def edit_event(request, event_id):
     else:
         form = EventForm(instance=event)
 
-    return render(request, 'edit_event.html', {'form': form})
+    return render(request, 'core/edit_event.html', {'form': form})
 
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
@@ -264,7 +264,7 @@ def add_event(request):
     else:
         form = EventForm()
 
-    return render(request, 'add_event.html', {'form': form})
+    return render(request, 'core/add_event.html', {'form': form})
 
 
 from django.shortcuts import get_object_or_404, redirect
@@ -284,7 +284,7 @@ def edit_news(request, item_id):
     else:
         form = NewsForm(instance=news_item)
 
-    return render(request, 'edit_news.html', {'form': form})
+    return render(request, 'core/edit_news.html', {'form': form})
 
 
 
@@ -314,5 +314,5 @@ def add_news(request):
     else:
         form = NewsForm()
 
-    return render(request, 'add_news.html', {'form': form})
+    return render(request, 'core/add_news.html', {'form': form})
 
