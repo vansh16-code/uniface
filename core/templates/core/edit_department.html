@@ -1,18 +1,36 @@
-{% extends "core/base.html" %}
+{% extends 'core/base.html' %}
 
 {% block content %}
 <div class="container mt-4">
-    <div class="card shadow-lg p-4">
-        <h2 class="mb-4">Edit Department</h2>
-        <form method="post">
-            {% csrf_token %}
-            <div class="mb-3">
-                {{ form.name.label_tag }}
-                {{ form.name }}
+    <h3 class="mb-4 text-center">✏️ Edit Department</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    {{ form.description }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Contact Email</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 {% endblock %}
