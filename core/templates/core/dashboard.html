@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+
 {% block content %}
 <div class="container mt-4">
 
@@ -35,6 +36,22 @@
     {% empty %}
         <p class="text-muted">No upcoming events.</p>
     {% endfor %}
+
+    <hr>
+
+    <h4>Followed Departments</h4>
+    {% if followed_departments %}
+        <ul class="list-group">
+            {% for department in followed_departments %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ department.name }}
+                    <a href="{% url 'unfollow_department' department.id %}" class="btn btn-danger btn-sm">Unfollow</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">You haven't followed any departments yet.</p>
+    {% endif %}
 
 </div>
 {% endblock %}
