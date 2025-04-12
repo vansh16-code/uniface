@@ -2,22 +2,42 @@
 
 {% block content %}
 <div class="container mt-4">
-    <div class="card shadow-lg p-4">
-        <h2 class="mb-4">Edit Event</h2>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="mb-3">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {% if field.errors %}
-                        <div class="text-danger">{{ field.errors }}</div>
-                    {% endif %}
-                </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
-        </form>
-    </div>
+    <h2>Edit Event</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Event Title</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div class="text-danger">{{ form.title.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="date" class="form-label">Event Date</label>
+            {{ form.date }}
+            {% if form.date.errors %}
+                <div class="text-danger">{{ form.date.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div class="text-danger">{{ form.description.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="location" class="form-label">Event Location</label>
+            {{ form.location }}
+            {% if form.location.errors %}
+                <div class="text-danger">{{ form.location.errors }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Event</button>
+    </form>
 </div>
 {% endblock %}
