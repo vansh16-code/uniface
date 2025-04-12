@@ -189,14 +189,17 @@ def delete_event(request, event_id):
 @user_passes_test(is_admin)
 def add_news(request):
     if request.method == 'POST':
-        form = NewsForm(request.POST)
+        form = NewsForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            news = form.save(commit=False)
+            news.posted_by = request.user
+            news.department = DepartmentCoordinator.objects.get(user=request.user).department
+            news.save()
             return redirect('admin_dashboard')
     else:
         form = NewsForm()
-
     return render(request, 'core/add_news.html', {'form': form})
+
 
 
 @user_passes_test(is_admin)

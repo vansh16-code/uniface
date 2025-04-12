@@ -1,23 +1,48 @@
-{% extends "core/base.html" %}
+{% extends 'core/base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="card shadow-lg p-4">
-        <h2 class="mb-4">Add News</h2>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="mb-3">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {% if field.errors %}
-                        <div class="text-danger">{{ field.errors }}</div>
-                    {% endif %}
-                </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-success">Publish</button>
-            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
-        </form>
-    </div>
+<div class="container my-5 d-flex justify-content-center">
+  <div class="card shadow-lg p-4 w-100" style="max-width: 600px; border-radius: 20px;">
+    <h3 class="mb-4 text-center">Add News</h3>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- Title -->
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input type="text" name="title" id="title" class="form-control" placeholder="Enter news title" required>
+      </div>
+
+      <!-- Content -->
+      <div class="mb-3">
+        <label class="form-label" for="content">Content</label>
+        <textarea name="content" id="content" rows="4" class="form-control" placeholder="Enter news content" required></textarea>
+      </div>
+
+      <!-- Image -->
+      <div class="mb-3">
+        <label class="form-label" for="image">Image</label>
+        <input type="file" name="image" id="image" class="form-control">
+      </div>
+
+      <!-- Department -->
+      <div class="mb-4">
+        <label class="form-label" for="department">Department</label>
+        <select name="department" id="department" class="form-select" required>
+          <option value="" disabled selected>-- Select Department --</option>
+          {% for dept in form.fields.department.queryset %}
+            <option value="{{ dept.id }}">{{ dept.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-success px-4">Publish</button>
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary px-4">Cancel</a>
+      </div>
+    </form>
+  </div>
 </div>
 {% endblock %}

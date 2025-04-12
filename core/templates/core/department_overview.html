@@ -3,17 +3,16 @@
 
 {% block content %}
 <div class="container" style="padding-bottom: 80px;">
-    <h2 class="text-center text-light mb-4">Department Overview</h2>
+    <h2 class="text-center mb-4 department-title">Department Overview</h2>
     <div class="row">
         {% for dept in departments %}
         <div class="col-md-4 mb-4">
-            <div class="card bg-dark text-light border-light h-100">
+            <div class="card department-card h-100">
                 <div class="card-body">
                     <h5 class="card-title">{{ dept.name }}</h5>
                     <p class="card-text">{{ dept.description }}</p>
-                    <p class="card-text text-info"><strong>HOD Email:</strong> {{ dept.email }}</p>
-                    <p class="text-info">Followers: {{ dept.followers.count }}</p>
-
+                    <p class="card-text email-text"><strong>HOD Email:</strong> {{ dept.email }}</p>
+                    <p class="followers-text">Followers: {{ dept.followers.count }}</p>
 
                     {% if user.is_authenticated %}
                         {% if user in dept.followers.all %}
@@ -28,13 +27,13 @@
                             </form>
                         {% endif %}
                     {% else %}
-                        <p><a href="{% url 'login' %}" class="btn btn-sm btn-outline-light">Login to Follow</a></p>
+                        <p><a href="{% url 'login' %}" class="btn btn-sm btn-outline-primary">Login to Follow</a></p>
                     {% endif %}
                 </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-light">No departments found.</p>
+        <p class="text-muted">No departments found.</p>
         {% endfor %}
     </div>
 </div>

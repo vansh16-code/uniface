@@ -131,5 +131,5 @@ LOGOUT_REDIRECT_URL = '/'          # After logout
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'  # Or 'bootstrap5' based on your version
+
 
