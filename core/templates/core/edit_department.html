@@ -1,12 +1,18 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
+
 {% block content %}
 <div class="container mt-4">
-    <h3 class="mb-4">Edit Department</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Update Department</button>
-    </form>
+    <div class="card shadow-lg p-4">
+        <h2 class="mb-4">Edit Department</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
 </div>
 {% endblock %}
-

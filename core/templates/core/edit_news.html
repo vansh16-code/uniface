@@ -1,11 +1,23 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
+
 {% block content %}
 <div class="container mt-4">
-    <h3 class="mb-4">Edit News Article</h3>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Save Changes</button>
-    </form>
+    <div class="card shadow-lg p-4">
+        <h2 class="mb-4">Edit News</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
 </div>
 {% endblock %}
