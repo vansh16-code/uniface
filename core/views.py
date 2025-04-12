@@ -123,6 +123,7 @@ def upload_news(request):
             news = form.save(commit=False)
             news.posted_by = request.user
             news.save()
+            print(f"News uploaded: {news.title}")
             return redirect('home')
     else:
         form = NewsForm()

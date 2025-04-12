@@ -12,27 +12,27 @@
                 <div class="card-body bg-dark text-white">
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-
+                        
                         <!-- Title Field -->
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="id_title" class="form-label">Title</label>
                             <input type="text" name="title" id="id_title" class="form-control" placeholder="Enter news title" required>
                         </div>
 
                         <!-- Content Field -->
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="id_content" class="form-label">Content</label>
                             <textarea name="content" id="id_content" rows="5" class="form-control" placeholder="Write the content here..." required></textarea>
                         </div>
 
                         <!-- Image Field -->
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="id_image" class="form-label">Image</label>
                             <input type="file" name="image" id="id_image" class="form-control">
                         </div>
 
                         <!-- Department Field -->
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="id_department" class="form-label">Department</label>
                             <select name="department" id="id_department" class="form-select" required>
                                 <option value="">-- Select Department --</option>
@@ -44,7 +44,7 @@
                             </select>
                         </div>
 
-                        
+                        <!-- Submit Button -->
                         <button type="submit" class="btn btn-success w-100">📢 Post News</button>
                     </form>
                 </div>
