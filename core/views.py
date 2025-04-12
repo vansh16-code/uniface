@@ -65,11 +65,14 @@ def dashboard(request):
     user = request.user
     joined_events = user.joined_events.all()
     upcoming_events = Event.objects.exclude(participants=user).order_by('date')
+    followed_departments = user.followed_departments.all()  # Fetch the followed departments
 
     return render(request, 'core/dashboard.html', {
         'joined_events': joined_events,
-        'upcoming_events': upcoming_events
+        'upcoming_events': upcoming_events,
+        'followed_departments': followed_departments  # Pass followed departments to the template
     })
+
 
 
 # Join and Leave Event
