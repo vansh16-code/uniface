@@ -10,7 +10,7 @@ class EventForm(forms.ModelForm):
             'time': forms.TimeInput(attrs={'type': 'time'}),
         }
 
-# core/forms.py
+
 
 from django import forms
 from django.contrib.auth.models import User

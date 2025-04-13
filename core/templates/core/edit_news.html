@@ -3,24 +3,64 @@
 {% block content %}
 <div class="container mt-4">
     <h2>Edit News</h2>
-    <form method="post">
+    
+    <!-- Form for editing news -->
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+
+        <!-- Title Field -->
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            {{ form.title }}
+            <input type="text" id="title" name="title" class="form-control" value="{{ form.title.value }}" required>
             {% if form.title.errors %}
-                <div class="text-danger">{{ form.title.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="mb-3">
-            <label for="content" class="form-label">Content</label>
-            {{ form.content }}
-            {% if form.content.errors %}
-                <div class="text-danger">{{ form.content.errors }}</div>
+                <div class="text-danger">
+                    {% for error in form.title.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
             {% endif %}
         </div>
 
+        <!-- Content Field -->
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea id="content" name="content" class="form-control" rows="5" required>{{ form.content.value }}</textarea>
+            {% if form.content.errors %}
+                <div class="text-danger">
+                    {% for error in form.content.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Department Field -->
+        <div class="mb-3">
+            <label for="department" class="form-label">Department</label>
+            {{ form.department }} <!-- Renders the department field -->
+            {% if form.department.errors %}
+                <div class="text-danger">
+                    {% for error in form.department.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Image Field (Optional, if you have an ImageField in your model) -->
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" id="image" name="image" class="form-control">
+            {% if form.image.errors %}
+                <div class="text-danger">
+                    {% for error in form.image.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Update News</button>
     </form>
 </div>

@@ -210,11 +210,14 @@ def edit_news(request, item_id):
     news_item = get_object_or_404(News, id=item_id)
 
     if request.method == 'POST':
-        form = NewsForm(request.POST, instance=news_item)
+        
+        form = NewsForm(request.POST, request.FILES, instance=news_item)
         if form.is_valid():
             form.save()
             messages.success(request, 'News updated successfully!')
-            return redirect('admin_dashboard')  # Redirect to admin dashboard
+            return redirect('admin_dashboard') 
+        else:
+            print(form.errors)  
     else:
         form = NewsForm(instance=news_item)
 
