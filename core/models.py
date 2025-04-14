@@ -46,7 +46,7 @@ class Follow(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('user', 'department')  # Prevent duplicate follows
+        unique_together = ('user', 'department')  
 
     def __str__(self):
         return f"{self.user.username} follows {self.department.name}"
