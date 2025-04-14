@@ -9,7 +9,7 @@ from .models import Department, Event, News, Follow, DepartmentCoordinator
 from .forms import RegisterForm, NewsForm, EventForm, DepartmentForm
 
 
-# Home View - Display departments, events, and news
+
 def home(request):
     departments = Department.objects.all()
     selected_department = request.GET.get('department')
@@ -28,7 +28,7 @@ def home(request):
     })
 
 
-# Follow and Unfollow Department
+
 @login_required
 def follow_department(request, dept_id):
     department = get_object_or_404(Department, id=dept_id)
@@ -42,7 +42,7 @@ def unfollow_department(request, dept_id):
     return redirect('department_overview')
 
 
-# Department Overview for all departments
+
 @login_required
 def department_overview(request):
     departments = Department.objects.all()
@@ -51,7 +51,7 @@ def department_overview(request):
     })
 
 
-# Event List View
+
 def event_list(request):
     events = Event.objects.all().order_by('date')
     return render(request, 'core/event_list.html', {
@@ -59,23 +59,23 @@ def event_list(request):
     })
 
 
-# User Dashboard with Joined and Upcoming Events
+
 @login_required
 def dashboard(request):
     user = request.user
     joined_events = user.joined_events.all()
     upcoming_events = Event.objects.exclude(participants=user).order_by('date')
-    followed_departments = user.followed_departments.all()  # Fetch the followed departments
+    followed_departments = user.followed_departments.all()  
 
     return render(request, 'core/dashboard.html', {
         'joined_events': joined_events,
         'upcoming_events': upcoming_events,
-        'followed_departments': followed_departments  # Pass followed departments to the template
+        'followed_departments': followed_departments  
     })
 
 
 
-# Join and Leave Event
+
 @login_required
 def join_event(request, event_id):
     event = get_object_or_404(Event, id=event_id)
@@ -94,13 +94,13 @@ def leave_event(request, event_id):
     return redirect('dashboard')
 
 
-# Admin Views for Event, Department, and News management
 
-# Check if user is admin
+
+
 def is_admin(user):
     return user.is_staff
 
-# Admin Dashboard to view departments, events, and news
+
 @user_passes_test(is_admin)
 def admin_dashboard(request):
     departments = Department.objects.all()
@@ -116,7 +116,7 @@ def admin_dashboard(request):
     return render(request, 'core/admin-dashboard.html', context)
 
 
-# Add, Edit, Delete Department
+
 @user_passes_test(is_admin)
 def add_department(request):
     if request.method == 'POST':
@@ -152,7 +152,7 @@ def delete_department(request, department_id):
     return redirect('admin_dashboard')
 
 
-# Add, Edit, Delete Event
+
 @user_passes_test(is_admin)
 def add_event(request):
     if request.method == 'POST':
@@ -188,7 +188,7 @@ def delete_event(request, event_id):
     return redirect('admin_dashboard')
 
 
-# Add, Edit, Delete News
+
 @user_passes_test(is_admin)
 def add_news(request):
     if request.method == 'POST':
@@ -231,7 +231,7 @@ def delete_news(request, item_id):
     return redirect('admin_dashboard')
 
 
-# User Registration
+
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -248,14 +248,14 @@ def register(request):
     return render(request, 'core/register.html', {'form': form})
 
 
-# User Profile: Get followed departments
+
 def get_followed_departments(self):
     return Department.objects.filter(followers=self)
 
 User.add_to_class('followed_departments', property(get_followed_departments))
 
 
-# Upload News
+
 @login_required
 def upload_news(request):
     if request.method == 'POST':
@@ -270,13 +270,13 @@ def upload_news(request):
         form = NewsForm()
     return render(request, 'core/upload_news.html', {'form': form})
 
-# Manage Department View - Allows admins to add, edit, and delete departments
+
 def is_admin(user):
-    return user.is_staff  # This checks if the user has staff status (admin rights)
+    return user.is_staff  
 
 @user_passes_test(is_admin)
 def manage_department(request):
-    # Retrieve all departments
+    
     departments = Department.objects.all()
 
     if request.method == 'POST':
@@ -290,7 +290,7 @@ def manage_department(request):
             return redirect('manage_department')
 
         elif action == 'edit':
-            # Redirect to the edit department view
+            
             return redirect('edit_department', department_id=department_id)
 
     return render(request, 'core/manage_department.html', {
