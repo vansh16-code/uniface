@@ -21,8 +21,8 @@ class Event(models.Model):
     description = models.TextField()
     date = models.DateField()
     time = models.TimeField()
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    participants = models.ManyToManyField(User, related_name='joined_events', blank=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True )
+    participants = models.ManyToManyField(User, related_name='joined_events', blank=True )
     attendees = models.ManyToManyField(User, related_name='event_rsvps', blank=True)
 
     def __str__(self):
